@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מדריך SEO — Swift Key & Lock | Stuart FL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#050608;--dark:#0d1018;--surface:#111420;--raised:#161a27;--card:#1a1f2e;
+  --border:rgba(255,255,255,0.07);--border-gold:rgba(212,168,56,0.35);
+  --gold:#c8922a;--gold-bright:#e8c050;--gold-halo:rgba(200,146,42,0.07);
+  --white:#f0efe8;--soft:#c8cad4;--muted:#5a6070;
+  --green:#20c050;--green-bg:rgba(32,192,80,0.08);--green-border:rgba(32,192,80,0.25);
+  --red:#e83838;--red-bg:rgba(232,56,56,0.08);--red-border:rgba(232,56,56,0.25);
+  --blue:#4080ff;--blue-bg:rgba(64,128,255,0.08);--blue-border:rgba(64,128,255,0.25);
+  --orange:#ff8030;--orange-bg:rgba(255,128,48,0.08);--orange-border:rgba(255,128,48,0.25);
+  --display:'Bebas Neue',sans-serif;--body:'DM Sans',system-ui,sans-serif;
+  --r:10px;--r-lg:16px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--white);font-family:var(--body);font-size:15px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold-bright)}
+code{font-family:monospace;background:var(--raised);border:1px solid var(--border);border-radius:5px;padding:2px 7px;font-size:13px;color:var(--gold-bright)}
+pre{background:var(--raised);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;overflow-x:auto;margin:14px 0}
+pre code{background:none;border:none;padding:0;font-size:13px;color:var(--soft)}
+
+/* TOPBAR */
+.topbar{background:linear-gradient(90deg,#7a5010,var(--gold),#e8c050,var(--gold),#7a5010);background-size:300%;animation:shine 6s linear infinite;color:var(--void);padding:8px 24px;text-align:center;font-family:var(--display);font-size:12px;letter-spacing:0.2em}
+@keyframes shine{0%{background-position:300% 0}100%{background-position:-300% 0}}
+
+/* SIDEBAR LAYOUT */
+.layout{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--dark);border-left:1px solid var(--border);padding:28px 0;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-track{background:transparent}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border)}
+.sb-brand{padding:0 20px 22px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.sb-brand-name{font-family:var(--display);font-size:18px;color:var(--gold-bright);letter-spacing:0.06em}
+.sb-brand-sub{font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:3px}
+.sb-section{padding:6px 0}
+.sb-section-title{font-family:var(--display);font-size:9px;letter-spacing:0.22em;color:var(--muted);padding:10px 20px 6px;text-transform:uppercase}
+.sb-link{display:flex;align-items:center;gap:9px;padding:8px 20px;font-size:13px;color:var(--muted);transition:all 0.2s;border-right:2px solid transparent;cursor:pointer}
+.sb-link:hover,.sb-link.active{color:var(--white);background:var(--surface);border-right-color:var(--gold)}
+.sb-link .icon{font-size:15px;flex-shrink:0;width:20px;text-align:center}
+.sb-progress{margin:16px 20px 0;padding-top:16px;border-top:1px solid var(--border)}
+.sb-progress-label{font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+.progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-bright));border-radius:2px;width:0;transition:width 0.5s ease}
+.progress-text{font-family:var(--display);font-size:22px;color:var(--gold-bright);margin-top:6px}
+.progress-sub{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* MAIN CONTENT */
+.main{padding:0;max-width:880px}
+.hero-section{padding:56px 52px 44px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;background:radial-gradient(ellipse 80% 100% at 100% 50%,rgba(200,146,42,0.04),transparent)}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:var(--gold-halo);border:1px solid var(--border-gold);color:var(--gold-bright);font-family:var(--display);font-size:11px;letter-spacing:0.22em;padding:5px 16px;border-radius:100px;margin-bottom:18px}
+.hero-h1{font-family:var(--display);font-size:clamp(44px,5vw,72px);line-height:0.94;letter-spacing:0.03em;margin-bottom:14px}
+.hero-h1 em{color:var(--gold-bright);font-style:normal}
+.hero-sub{font-size:17px;color:var(--muted);max-width:580px;line-height:1.7;font-weight:300;margin-bottom:28px}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:11px;font-weight:600;padding:4px 12px;border-radius:100px;letter-spacing:0.07em}
+.tag-green{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+.tag-gold{background:var(--gold-halo);border:1px solid var(--border-gold);color:var(--gold-bright)}
+.tag-blue{background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue)}
+
+/* SECTION */
+.content-section{padding:48px 52px;border-bottom:1px solid var(--border)}
+.content-section:last-child{border-bottom:none}
+.section-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.section-num{font-family:var(--display);font-size:48px;color:rgba(200,146,42,0.12);line-height:1;flex-shrink:0;min-width:52px}
+.section-meta{}
+.section-eyebrow{font-family:var(--display);font-size:10px;letter-spacing:0.24em;color:var(--gold);margin-bottom:5px}
+.section-title{font-family:var(--display);font-size:clamp(26px,3vw,38px);letter-spacing:0.04em;line-height:1;margin-bottom:6px}
+.section-desc{font-size:14px;color:var(--muted);font-weight:300}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px 26px;margin-bottom:14px;transition:border-color 0.2s,box-shadow 0.2s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--border-gold);box-shadow:0 8px 32px rgba(0,0,0,0.2)}
+.card::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity 0.3s}
+.card:hover::before{opacity:1}
+.card-title{font-family:var(--display);font-size:17px;letter-spacing:0.06em;margin-bottom:8px;display:flex;align-items:center;gap:9px}
+.card-body{font-size:14px;color:var(--muted);line-height:1.7;font-weight:300}
+.card-body strong{color:var(--soft);font-weight:500}
+.card-green{border-color:var(--green-border);background:var(--green-bg)}
+.card-red{border-color:var(--red-border);background:var(--red-bg)}
+.card-gold{border-color:var(--border-gold);background:var(--gold-halo)}
+.card-blue{border-color:var(--blue-border);background:var(--blue-bg)}
+.card-orange{border-color:var(--orange-border);background:var(--orange-bg)}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
+
+/* CHECKLIST */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.checklist li{display:flex;align-items:flex-start;gap:11px;font-size:14px;color:var(--soft);font-weight:300;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);transition:border-color 0.2s}
+.checklist li:hover{border-color:var(--border-gold)}
+.check-icon{flex-shrink:0;margin-top:1px;font-size:15px}
+.check-text{flex:1}
+.check-text strong{color:var(--white);font-weight:500;display:block;margin-bottom:2px}
+.check-badge{font-size:9px;font-weight:700;letter-spacing:0.1em;padding:2px 8px;border-radius:100px;margin-right:6px}
+.badge-critical{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
+.badge-high{background:var(--orange-bg);border:1px solid var(--orange-border);color:var(--orange)}
+.badge-medium{background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue)}
+.badge-done{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+
+/* KEYWORD TABLE */
+.kw-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.kw-table th{background:var(--raised);border:1px solid var(--border);padding:10px 14px;text-align:right;font-family:var(--display);font-size:10px;letter-spacing:0.16em;color:var(--gold);font-weight:400}
+.kw-table td{border:1px solid var(--border);padding:10px 14px;color:var(--soft);font-weight:300;vertical-align:top}
+.kw-table tr:hover td{background:var(--surface)}
+.vol-high{color:var(--green);font-weight:600}
+.vol-med{color:var(--gold-bright);font-weight:600}
+.vol-low{color:var(--muted)}
+.comp-low{color:var(--green)}
+.comp-med{color:var(--gold-bright)}
+.comp-high{color:var(--red)}
+
+/* PRIORITY BADGE */
+.priority{display:inline-flex;align-items:center;gap:5px;font-family:var(--display);font-size:10px;letter-spacing:0.16em;padding:3px 10px;border-radius:100px}
+.p-now{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
+.p-week{background:var(--orange-bg);border:1px solid var(--orange-border);color:var(--orange)}
+.p-month{background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue)}
+.p-done{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+
+/* TIMELINE */
+.timeline{position:relative;padding-right:24px}
+.timeline::before{content:'';position:absolute;right:0;top:8px;bottom:8px;width:1px;background:var(--border)}
+.tl-item{position:relative;padding-right:28px;padding-bottom:28px}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;right:-7px;top:6px;width:14px;height:14px;border-radius:50%;border:2px solid var(--void);flex-shrink:0}
+.tl-dot-now{background:var(--red)}
+.tl-dot-week{background:var(--orange)}
+.tl-dot-month{background:var(--blue)}
+.tl-dot-long{background:var(--gold)}
+.tl-label{font-family:var(--display);font-size:10px;letter-spacing:0.2em;margin-bottom:6px}
+.tl-title{font-family:var(--display);font-size:20px;letter-spacing:0.04em;margin-bottom:10px}
+.tl-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.tl-list li{font-size:13px;color:var(--muted);font-weight:300;display:flex;align-items:flex-start;gap:7px}
+.tl-list li::before{content:'→';color:var(--gold);flex-shrink:0}
+
+/* COPY BOX */
+.copy-box{background:var(--raised);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin:12px 0;position:relative;font-family:monospace;font-size:13px;color:var(--soft);line-height:1.7;overflow-x:auto}
+.copy-box .copy-label{position:absolute;top:10px;left:14px;font-family:var(--body);font-size:9px;letter-spacing:0.16em;color:var(--muted);font-weight:600;text-transform:uppercase}
+.copy-box.has-label{padding-top:30px}
+.highlight{color:var(--gold-bright)}
+.highlight-green{color:var(--green)}
+.highlight-blue{color:#80b0ff}
+
+/* SCORE CARD */
+.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.score-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;text-align:center}
+.score-num{font-family:var(--display);font-size:32px;letter-spacing:0.04em;line-height:1}
+.score-num.green{color:var(--green)}
+.score-num.gold{color:var(--gold-bright)}
+.score-num.red{color:var(--red)}
+.score-label{font-size:11px;color:var(--muted);margin-top:5px;font-weight:300}
+
+/* SEPARATOR */
+.sep{height:1px;background:var(--border);margin:22px 0}
+
+/* ALERT */
+.alert{display:flex;gap:13px;padding:16px 18px;border-radius:var(--r);margin:16px 0;font-size:14px}
+.alert-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.alert-text{color:var(--soft);font-weight:300;line-height:1.6}
+.alert-text strong{color:var(--white);font-weight:500}
+.alert-critical{background:var(--red-bg);border:1px solid var(--red-border)}
+.alert-gold{background:var(--gold-halo);border:1px solid var(--border-gold)}
+.alert-green{background:var(--green-bg);border:1px solid var(--green-border)}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-section,.hero-section{padding:32px 24px}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .score-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">🔑 SWIFT KEY & LOCK — מדריך SEO GOD MODE | STUART FL / TREASURE COAST 2026</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-brand-name">SEO GOD MODE</div>
+    <div class="sb-brand-sub">Swift Key & Lock · Stuart FL</div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-title">בסיס</div>
+    <a href="#keywords" class="sb-link active"><span class="icon">🎯</span>מילות מפתח</a>
+    <a href="#gmb" class="sb-link"><span class="icon">📍</span>Google Business</a>
+    <a href="#onpage" class="sb-link"><span class="icon">📄</span>On-Page SEO</a>
+    <a href="#schema" class="sb-link"><span class="icon">🧩</span>Schema Markup</a>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-title">תוכן</div>
+    <a href="#pages" class="sb-link"><span class="icon">🗂️</span>מבנה דפים</a>
+    <a href="#content" class="sb-link"><span class="icon">✍️</span>אסטרטגיית תוכן</a>
+    <a href="#reviews" class="sb-link"><span class="icon">⭐</span>ביקורות</a>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-title">טכני</div>
+    <a href="#technical" class="sb-link"><span class="icon">⚡</span>טכני & מהירות</a>
+    <a href="#sitemap" class="sb-link"><span class="icon">🗺️</span>Sitemap & Analytics</a>
+    <a href="#images" class="sb-link"><span class="icon">🖼️</span>תמונות & Alt Text</a>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-title">שיווק</div>
+    <a href="#ads" class="sb-link"><span class="icon">📢</span>Google Ads</a>
+    <a href="#conversions" class="sb-link"><span class="icon">📞</span>המרות</a>
+    <a href="#timeline" class="sb-link"><span class="icon">🗓️</span>לוח זמנים</a>
+  </div>
+
+  <div class="sb-progress">
+    <div class="sb-progress-label">התקדמות כוללת</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-text" id="progressText">0%</div>
+    <div class="progress-sub">לחץ על משימות לסימון</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- HERO -->
+<div class="hero-section">
+  <div class="hero-badge">🔑 GOD MODE SEO · STUART FL 2026</div>
+  <h1 class="hero-h1">מדריך ה-SEO<br>ה<em>מושלם</em> שלך</h1>
+  <p class="hero-sub">כל מה שצריך לדמינציה מוחלטת ב-Google Stuart FL — מ-Google Business Profile ועד Schema Markup, מהירות דפים, וביקורות. הכל בסדר הנכון.</p>
+  <div class="hero-tags">
+    <span class="tag tag-green">✅ דפי נחיתה מוכנים ל-7 ערים</span>
+    <span class="tag tag-gold">⚡ 30-min Response</span>
+    <span class="tag tag-blue">📍 Martin County + Treasure Coast</span>
+  </div>
+</div>
+
+<!-- 1. KEYWORDS -->
+<section class="content-section" id="keywords">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">מחקר מילות מפתח</div>
+      <div class="section-title">Keywords שמביאים לקוחות</div>
+      <div class="section-desc">אלו המילים שאנשים בStuart FL מחפשים ברגע הכי חם — כשהם כבר צריכים אותך</div>
+    </div>
+  </div>
+
+  <div class="alert alert-critical">
+    <div class="alert-icon">🔥</div>
+    <div class="alert-text"><strong>המילים הכי חמות = כוונת קנייה מיידית.</strong> מישהו שמחפש "emergency locksmith Stuart FL" — הוא עכשיו בחוץ, נעול בחוץ, ורוצה לשלם. זו המילה שצריך לנצח.</div>
+  </div>
+
+  <table class="kw-table">
+    <thead>
+      <tr>
+        <th>מילת מפתח</th>
+        <th>נפח חיפוש</th>
+        <th>תחרות</th>
+        <th>עדיפות</th>
+        <th>כוונה</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>locksmith Stuart FL</code></td><td class="vol-high">גבוה</td><td class="comp-med">בינונית</td><td><span class="priority p-now">🔥 עכשיו</span></td><td>קנייה מיידית</td></tr>
+      <tr><td><code>emergency locksmith Stuart FL</code></td><td class="vol-high">גבוה</td><td class="comp-low">נמוכה</td><td><span class="priority p-now">🔥 עכשיו</span></td><td>קנייה מיידית</td></tr>
+      <tr><td><code>locksmith near me Stuart</code></td><td class="vol-high">גבוה</td><td class="comp-med">בינונית</td><td><span class="priority p-now">🔥 עכשיו</span></td><td>קנייה מיידית</td></tr>
+      <tr><td><code>car lockout Stuart FL</code></td><td class="vol-med">בינוני</td><td class="comp-low">נמוכה</td><td><span class="priority p-now">🔥 עכשיו</span></td><td>קנייה מיידית</td></tr>
+      <tr><td><code>locksmith 34994</code></td><td class="vol-low">נמוך</td><td class="comp-low">נמוכה מאוד</td><td><span class="priority p-week">⚡ שבוע</span></td><td>קנייה מיידית</td></tr>
+      <tr><td><code>locksmith Jensen Beach FL</code></td><td class="vol-med">בינוני</td><td class="comp-low">נמוכה</td><td><span class="priority p-week">⚡ שבוע</span></td><td>קנייה מיידית</td></tr>
+      <tr><td><code>locksmith Palm City FL</code></td><td class="vol-med">בינוני</td><td class="comp-low">נמוכה</td><td><span class="priority p-week">⚡ שבוע</span></td><td>קנייה מיידית</td></tr>
+      <tr><td><code>locksmith Port St. Lucie</code></td><td class="vol-high">גבוה</td><td class="comp-med">בינונית</td><td><span class="priority p-week">⚡ שבוע</span></td><td>קנייה מיידית</td></tr>
+      <tr><td><code>24 hour locksmith Stuart FL</code></td><td class="vol-med">בינוני</td><td class="comp-low">נמוכה</td><td><span class="priority p-week">⚡ שבוע</span></td><td>קנייה מיידית</td></tr>
+      <tr><td><code>car key programming Stuart FL</code></td><td class="vol-low">נמוך</td><td class="comp-low">נמוכה</td><td><span class="priority p-month">📅 חודש</span></td><td>השוואת מחירים</td></tr>
+      <tr><td><code>rekey locks Stuart FL</code></td><td class="vol-low">נמוך</td><td class="comp-low">נמוכה</td><td><span class="priority p-month">📅 חודש</span></td><td>מחקר</td></tr>
+      <tr><td><code>locksmith Martin County FL</code></td><td class="vol-low">נמוך</td><td class="comp-low">נמוכה מאוד</td><td><span class="priority p-month">📅 חודש</span></td><td>מחקר</td></tr>
+      <tr><td><code>locksmith Treasure Coast FL</code></td><td class="vol-low">נמוך</td><td class="comp-low">נמוכה מאוד</td><td><span class="priority p-month">📅 חודש</span></td><td>מחקר</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-gold">
+    <div class="alert-icon">💡</div>
+    <div class="alert-text"><strong>אסטרטגיית ZIP codes:</strong> מחפשים "locksmith 34994" הם מחפשים מאוד ספציפי — ולמעשה התחרות כמעט אפסית. כבר כלולים בדפי הנחיתה שלך.</div>
+  </div>
+</section>
+
+<!-- 2. GMB -->
+<section class="content-section" id="gmb">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">הכי חשוב</div>
+      <div class="section-title">Google Business Profile</div>
+      <div class="section-desc">זה מה שמביא 60-80% מהלקוחות המקומיים — ה-Map Pack הוא הזהב</div>
+    </div>
+  </div>
+
+  <div class="alert alert-critical">
+    <div class="alert-icon">🚨</div>
+    <div class="alert-text"><strong>זה המספר אחד.</strong> לפני כל שאר ה-SEO — אם Google Business Profile שלך לא מוגדר נכון, אתה מפסיד 70% מהלקוחות הפוטנציאלים. תעשה את זה היום.</div>
+  </div>
+
+  <ul class="checklist">
+    <li>
+      <span class="check-icon">📍</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-critical">CRITICAL</span>שם עסק מדויק</strong>
+        שם: <code>Swift Key & Lock</code> — בלי מילות מפתח בשם (Google יעניש) — רק השם הרשמי
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🗂️</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-critical">CRITICAL</span>קטגוריה ראשית</strong>
+        קטגוריה ראשית: <code>Locksmith</code> — זה הכי חשוב. אל תבחר "Security System Installer" או כל דבר אחר כקטגוריה ראשית.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">➕</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-high">HIGH</span>קטגוריות משניות</strong>
+        הוסף: <code>Emergency Locksmith Service</code> · <code>Automotive Locksmith</code> · <code>Safe & Vault Service</code>
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🗺️</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-critical">CRITICAL</span>Service Area — 7 ערים</strong>
+        הוסף ידנית: Stuart · Jensen Beach · Palm City · Hobe Sound · Port St. Lucie · Fort Pierce · Jupiter — כך אתה מופיע בחיפושים של כולן
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">⏰</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-critical">CRITICAL</span>שעות פתיחה: 24/7</strong>
+        שנה שעות ל-Open 24 hours בכל יום השבוע. זה מראה ב-Map Pack ומגדיל המרות.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">📞</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-critical">CRITICAL</span>מספר טלפון — עקבי</strong>
+        אותו מספר טלפון בדיוק באתר, ב-GMB, ב-Yelp, ב-Angi — Google בודק עקביות (NAP). אי-עקביות = נזק ל-SEO.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">📝</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-high">HIGH</span>תיאור עסק — 750 תווים</strong>
+        כתוב תיאור שמכיל: "locksmith Stuart FL", "emergency locksmith", "24/7", "Martin County", "Treasure Coast", שמות ערים — אבל שיישמע טבעי, לא ספאם.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🖼️</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-high">HIGH</span>תמונות — מינימום 10</strong>
+        לוגו, תמונת רכב עם שם העסק, תמונות של עבודה בשטח, תמונת פנים הרכב, ערים שונות. Google מעדיף עסקים עם הרבה תמונות.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🏷️</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-high">HIGH</span>שירותים עם מחירים</strong>
+        הוסף כל שירות עם מחיר משוער: Home Lockout $75, Car Lockout $85, Rekey $65 — זה מגדיל אמינות ומקדם ב-GMB.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">📮</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-medium">MEDIUM</span>Google Posts — שבועי</strong>
+        פרסם פוסט שבועי: "Stuart FL Emergency Locksmith Available 24/7" עם תמונה וקישור. Google אוהב עסקים פעילים.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">❓</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-medium">MEDIUM</span>Q&A Section</strong>
+        הוסף ידנית שאלות ותשובות: "Are you available on weekends?", "Do you serve Port St. Lucie?" — Google מציג אותן בגוגל Maps.
+      </div>
+    </li>
+  </ul>
+
+  <div class="card card-gold" style="margin-top:20px">
+    <div class="card-title">💡 הסוד של Map Pack</div>
+    <div class="card-body">Google Maps Pack (3 תוצאות בתחלית) — מי שמופיע שם מקבל <strong>70% מהקליקים</strong>. שלושת הגורמים הכי חשובים: מספר ואיכות ביקורות · רלוונטיות הפרופיל · קרבה לחייג. אתה לא יכול לשלוט על קרבה — אז מקסם ביקורות ורלוונטיות.</div>
+  </div>
+</section>
+
+<!-- 3. ON-PAGE SEO -->
+<section class="content-section" id="onpage">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">On-Page SEO</div>
+      <div class="section-title">אופטימיזציה של כל דף</div>
+      <div class="section-desc">כבר יש לך 7 דפי נחיתה — כאן מה לוודא שכולם מושלמים</div>
+    </div>
+  </div>
+
+  <div class="alert alert-green">
+    <div class="alert-icon">✅</div>
+    <div class="alert-text"><strong>הדפים שלך כבר כוללים:</strong> H1 עם שם העיר, meta description עם מילות מפתח, Schema JSON-LD, canonical URL, ZIP codes, שמות שכונות, mobile-responsive. זה בסיס מצוין.</div>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:18px;letter-spacing:0.06em;margin:22px 0 12px;color:var(--gold-bright)">מבנה H1/H2/H3 אידיאלי</h3>
+
+  <div class="copy-box has-label">
+    <div class="copy-label">Stuart FL — מבנה כותרות</div>
+<span class="highlight">H1:</span> Locksmith Stuart FL | 24/7 Emergency (772) 000-0000
+<span class="highlight">H2:</span> Emergency Locksmith Stuart FL
+<span class="highlight">H2:</span> Residential Locksmith Stuart FL
+<span class="highlight">H2:</span> Car Locksmith Stuart FL
+<span class="highlight">H2:</span> Why Choose Us in Stuart FL
+<span class="highlight">H3:</span> Neighborhoods We Serve in Stuart FL
+<span class="highlight">H3:</span> Stuart FL Locksmith FAQ
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:18px;letter-spacing:0.06em;margin:22px 0 12px;color:var(--gold-bright)">Meta Descriptions מנצחות — דוגמאות</h3>
+
+  <div class="grid-2">
+    <div class="card card-green">
+      <div class="card-title">✅ Stuart FL — נכון</div>
+      <div class="card-body" style="font-family:monospace;font-size:12px;line-height:1.7">#1 locksmith in Stuart FL. 24/7 emergency lockouts, car key programming & rekeying. Licensed, insured, BBB A+. 30-min response to 34994, 34996, 34997. Call (772) 000-0000.</div>
+      <div style="margin-top:8px;font-size:11px;color:var(--green)">✅ 154 תווים · מילות מפתח · ZIP codes · CTA</div>
+    </div>
+    <div class="card card-red">
+      <div class="card-title">❌ לא נכון</div>
+      <div class="card-body" style="font-family:monospace;font-size:12px;line-height:1.7">We are a locksmith company that serves the greater Stuart Florida area. We have many years of experience and are very professional.</div>
+      <div style="margin-top:8px;font-size:11px;color:var(--red)">❌ כללי · אין מילות מפתח · אין ZIP · אין CTA</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:18px;letter-spacing:0.06em;margin:22px 0 12px;color:var(--gold-bright)">כמה פעמים לציין את שם העיר</h3>
+
+  <div class="grid-3">
+    <div class="card" style="text-align:center">
+      <div class="score-num gold" style="font-size:36px">15+</div>
+      <div class="score-label">אזכורי "Stuart FL"<br>בדף Stuart</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="score-num gold" style="font-size:36px">3+</div>
+      <div class="score-label">ZIP codes<br>מפורשים בדף</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="score-num gold" style="font-size:36px">5+</div>
+      <div class="score-label">שמות שכונות<br>בדף</div>
+    </div>
+  </div>
+
+  <div class="alert alert-gold">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-text"><strong>Keyword Stuffing = עונש.</strong> "Stuart FL locksmith Stuart FL locksmith Stuart FL" — Google יעניש אותך. שם העיר צריך להופיע טבעי בתוך משפטים, לא 40 פעמים בשורה.</div>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:18px;letter-spacing:0.06em;margin:22px 0 12px;color:var(--gold-bright)">Internal Linking — קישורים בין דפים</h3>
+  <div class="card">
+    <div class="card-title">🔗 מבנה קישורים אידיאלי</div>
+    <div class="card-body">
+      כל דף עיר → מקשר ל-6 הערים האחרות (כבר יש בפוטר) ✅<br>
+      דף הבית → מקשר לכל 7 דפי הנחיתה ✅ (תוודא שהאתר הראשי מקשר לדפים)<br>
+      הוסף: "Also serving nearby <strong>Jensen Beach FL</strong> →" בתוך גוף הטקסט של Stuart — לא רק בפוטר<br>
+      שיטה: כל עיר → 2-3 קישורים פנימיים לערים הסמוכות בטקסט הגוף
+    </div>
+  </div>
+</section>
+
+<!-- 4. SCHEMA -->
+<section class="content-section" id="schema">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">Schema Markup</div>
+      <div class="section-title">JSON-LD מושלם</div>
+      <div class="section-desc">Schema markup מסביר ל-Google בדיוק מה העסק שלך — הדפים כבר כוללים Locksmith + FAQPage</div>
+    </div>
+  </div>
+
+  <div class="alert alert-green">
+    <div class="alert-icon">✅</div>
+    <div class="alert-text"><strong>כבר בדפים שלך:</strong> Locksmith Schema · FAQPage Schema · AggregateRating · OpeningHoursSpecification · GeoCoordinates. זה שלם ונכון.</div>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:18px;letter-spacing:0.06em;margin:22px 0 12px;color:var(--gold-bright)">הוסף לדף הבית — Organization Schema</h3>
+
+  <div class="copy-box has-label">
+    <div class="copy-label">JSON-LD — Organization (דף הבית)</div>
+{
+  "@context": "https://schema.org",
+  "@type": ["Locksmith", "LocalBusiness"],
+  "name": <span class="highlight">"Swift Key & Lock"</span>,
+  "url": <span class="highlight">"https://www.swiftkeyandlock.com"</span>,
+  "telephone": <span class="highlight">"+17720000000"</span>,
+  "priceRange": <span class="highlight">"$$"</span>,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": <span class="highlight">"[הכנס כתובת]"</span>,
+    "addressLocality": <span class="highlight">"Palm City"</span>,
+    "addressRegion": <span class="highlight">"FL"</span>,
+    "postalCode": <span class="highlight">"34990"</span>,
+    "addressCountry": "US"
+  },
+  "areaServed": [
+    <span class="highlight-green">"Stuart FL"</span>, <span class="highlight-green">"Jensen Beach FL"</span>,
+    <span class="highlight-green">"Palm City FL"</span>, <span class="highlight-green">"Hobe Sound FL"</span>,
+    <span class="highlight-green">"Port St. Lucie FL"</span>, <span class="highlight-green">"Fort Pierce FL"</span>,
+    <span class="highlight-green">"Jupiter FL"</span>
+  ],
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Mo","Tu","We","Th","Fr","Sa","Su"],
+    "opens": "00:00", "closes": "23:59"
+  }],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": <span class="highlight">"247"</span>
+  }
+}
+  </div>
+
+  <div class="card card-blue" style="margin-top:16px">
+    <div class="card-title">🔍 בדיקת Schema</div>
+    <div class="card-body">אחרי פרסום — עבור ל: <code>search.google.com/test/rich-results</code> והכנס את ה-URL שלך. Google יראה לך אם ה-Schema תקין ואם אתה זכאי ל-Rich Results (כוכבים בתוצאות החיפוש).</div>
+  </div>
+</section>
+
+<!-- 5. PAGE STRUCTURE -->
+<section class="content-section" id="pages">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">מבנה האתר</div>
+      <div class="section-title">דפים שצריך לבנות</div>
+      <div class="section-desc">מעבר ל-7 דפי הערים — אלה הדפים הנוספים שמגדילים את הדומיננטיות</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-green">
+      <div class="card-title">✅ כבר מוכן</div>
+      <div class="card-body">
+        /locksmith-stuart-fl<br>
+        /locksmith-jensen-beach<br>
+        /locksmith-palm-city<br>
+        /locksmith-hobe-sound<br>
+        /locksmith-port-st-lucie<br>
+        /locksmith-fort-pierce<br>
+        /locksmith-jupiter-fl
+      </div>
+    </div>
+    <div class="card card-orange">
+      <div class="card-title">⚡ לבנות — שלב הבא</div>
+      <div class="card-body">
+        /car-lockout-stuart-fl<br>
+        /residential-locksmith-stuart-fl<br>
+        /commercial-locksmith-stuart-fl<br>
+        /car-key-programming-stuart-fl<br>
+        /rekey-locks-stuart-fl<br>
+        /about-us<br>
+        /reviews
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:18px;letter-spacing:0.06em;margin:22px 0 12px;color:var(--gold-bright)">URL Structure — הכי חשוב</h3>
+  <div class="grid-2">
+    <div class="card card-green">
+      <div class="card-title">✅ URL נכון</div>
+      <div class="card-body" style="font-family:monospace;font-size:13px">
+        /locksmith-stuart-fl<br>
+        /car-lockout-stuart-fl<br>
+        /emergency-locksmith-jensen-beach<br>
+        /commercial-locksmith-port-st-lucie
+      </div>
+    </div>
+    <div class="card card-red">
+      <div class="card-title">❌ URL לא נכון</div>
+      <div class="card-body" style="font-family:monospace;font-size:13px">
+        /page?id=123<br>
+        /services/locksmith-page-1<br>
+        /our-great-locksmith-services<br>
+        /stuart_locksmith_FL_2024
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. CONTENT -->
+<section class="content-section" id="content">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">אסטרטגיית תוכן</div>
+      <div class="section-title">תוכן שמביא תנועה</div>
+      <div class="section-desc">Blog posts ודפי שירות נוספים — כל אחד מושך מילות מפתח שונות</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:18px;letter-spacing:0.06em;margin:0 0 12px;color:var(--gold-bright)">רעיונות לבלוג — תוכן שאנשים מחפשים</h3>
+
+  <ul class="checklist">
+    <li>
+      <span class="check-icon">📝</span>
+      <div class="check-text">
+        <strong>"How Much Does a Locksmith Cost in Stuart FL?" — 2026 Guide</strong>
+        מילת מפתח: "locksmith cost Stuart FL" — אנשים מחפשים לפני שהם קוראים
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">📝</span>
+      <div class="check-text">
+        <strong>"What to Do When Locked Out of Your Car in Stuart FL"</strong>
+        מילת מפתח: "locked out of car Stuart FL" — לוכד אנשים שעוד לא בחרו לוקסמיט
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">📝</span>
+      <div class="check-text">
+        <strong>"Best Smart Locks for Homes in Martin County FL — 2026"</strong>
+        מילת מפתח: "smart locks Martin County" — קונים שרוצים שידרוג
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">📝</span>
+      <div class="check-text">
+        <strong>"How to Choose a Licensed Locksmith in Port St. Lucie FL"</strong>
+        מילת מפתח: "licensed locksmith Port St. Lucie" — לקוח שזהיר ורוצה לדעת
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">📝</span>
+      <div class="check-text">
+        <strong>"Emergency Locksmith vs Regular Locksmith — Stuart FL Guide"</strong>
+        מיצוב כמומחה ובניית אמון — שיתופי חברתי גבוה
+      </div>
+    </li>
+  </ul>
+
+  <div class="card card-gold" style="margin-top:16px">
+    <div class="card-title">📄 דף About שמוכר</div>
+    <div class="card-body">דף About לא צריך להיות פורמלי — הוא צריך לבנות אמון. כלול: שמך, כמה שנות ניסיון, למה בחרת Stuart FL, תמונה שלך עם הרכב, הצהרת ערך. אנשים קוראים לאדם, לא לחברה.</div>
+  </div>
+</section>
+
+<!-- 7. REVIEWS -->
+<section class="content-section" id="reviews">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">ביקורות גוגל</div>
+      <div class="section-title">50 ביקורות ב-60 יום</div>
+      <div class="section-desc">ביקורות = המטבע של SEO מקומי. יותר ביקורות = יותר גבוה ב-Maps</div>
+    </div>
+  </div>
+
+  <div class="score-grid">
+    <div class="score-item">
+      <div class="score-num green">50+</div>
+      <div class="score-label">יעד ביקורות<br>תוך 60 יום</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num gold">5.0</div>
+      <div class="score-label">דירוג יעד<br>Google</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num gold">20-30</div>
+      <div class="score-label">ממוצע מתחרים<br>Stuart FL</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num green">60s</div>
+      <div class="score-label">זמן שליחת<br>SMS לביקורת</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:18px;letter-spacing:0.06em;margin:22px 0 12px;color:var(--gold-bright)">מערכת בקשת ביקורות</h3>
+
+  <div class="card card-green">
+    <div class="card-title">📱 SMS — שלח אחרי כל עבודה</div>
+    <div class="copy-box" style="margin-top:12px;font-size:14px">
+Hi [Name], it was great helping you today in Stuart! If you have 30 seconds, an honest Google review helps us a lot 🙏
+[YOUR GOOGLE REVIEW LINK]
+— Swift Key & Lock (772) 000-0000
+    </div>
+    <div class="card-body" style="margin-top:8px">שלח את ה-SMS תוך שעה אחרי סיום העבודה — כשהלקוח עוד זוכר ומרוצה. שיעור המרה: 40-60% כשנשלח מיידי.</div>
+  </div>
+
+  <ul class="checklist" style="margin-top:14px">
+    <li>
+      <span class="check-icon">🔗</span>
+      <div class="check-text">
+        <strong>צור קישור ישיר לביקורת Google</strong>
+        Google Business Profile → Get More Reviews → Share Review Form. שמור את הקישור בטלפון.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">📋</span>
+      <div class="check-text">
+        <strong>הוסף QR Code לביקורת על הרכב</strong>
+        QR שמוביל ישירות לדף ביקורת — תלה על לוח המחוונים. לקוח שמחכה לרכב שלו ירצה לסרוק.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">💬</span>
+      <div class="check-text">
+        <strong>ענה על כל ביקורת — חיובית ושלילית</strong>
+        Google מקדם עסקים שמגיבים לביקורות. תשובה לביקורת שלילית: "We're sorry to hear... please call us at (772) 000-0000 so we can make it right."
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🗂️</span>
+      <div class="check-text">
+        <strong>Yelp + Angi + Thumbtack — פרופילים נוספים</strong>
+        ביקורות בפלטפורמות אחרות = backlinks + אמינות נוספת ב-Google
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- 8. TECHNICAL -->
+<section class="content-section" id="technical">
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">טכני SEO</div>
+      <div class="section-title">מהירות & ביצועים</div>
+      <div class="section-desc">Google מדרג מהירות מובייל כגורם חשוב — דפי הנחיתה שלך כבר מאופטמזים, האתר הראשי צריך בדיקה</div>
+    </div>
+  </div>
+
+  <div class="alert alert-gold">
+    <div class="alert-icon">📱</div>
+    <div class="alert-text"><strong>דפי הנחיתה שלך:</strong> כתבנו אותם עם CSS מינימלי, ללא JavaScript כבד, Google Fonts עם preload, ואנימציות שמשתמשות ב-CSS בלבד. Core Web Vitals שלהם אמורים להיות מעולים.</div>
+  </div>
+
+  <ul class="checklist">
+    <li>
+      <span class="check-icon">⚡</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-critical">CRITICAL</span>PageSpeed Insights — יעד 90+</strong>
+        בדוק: <code>pagespeed.web.dev</code> — יעד Mobile 90+. כל נקודה מתחת ל-90 פוגעת בדירוג.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🔒</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-done">✅ יש</span>SSL / HTTPS</strong>
+        כבר יש — Google מעניש אתרים ללא HTTPS. ✅
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">📱</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-critical">CRITICAL</span>Mobile-First</strong>
+        בדוק: <code>search.google.com/test/mobile-friendly</code> — חייב לעבור. הדפים שלנו מותאמים מובייל מלא. ✅
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🌐</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-high">HIGH</span>Core Web Vitals</strong>
+        LCP (Largest Contentful Paint) &lt; 2.5s · FID &lt; 100ms · CLS &lt; 0.1 — בדוק ב-Search Console
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🖼️</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-high">HIGH</span>תמונות WebP</strong>
+        כל תמונה → המר ל-WebP (טול חינמי: <code>squoosh.app</code>) — 30-50% קטן יותר, טעינה מהירה יותר
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🔄</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-medium">MEDIUM</span>301 Redirects</strong>
+        אם יש URL ישן שמשתמשים ניגשים אליו — הפנה ל-URL החדש. אל תשאיר 404.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🤖</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-high">HIGH</span>robots.txt</strong>
+        וודא שיש קובץ robots.txt ש-<strong>מאפשר</strong> ל-Googlebot לסרוק את כל הדפים. שגיאה נפוצה: חסימה בטעות.
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- 9. SITEMAP & ANALYTICS -->
+<section class="content-section" id="sitemap">
+  <div class="section-header">
+    <div class="section-num">09</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">Sitemap & Analytics</div>
+      <div class="section-title">Google Search Console</div>
+      <div class="section-desc">Search Console = קו ישיר לGoogle. Analytics = מה אנשים עושים באתר שלך</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">🗺️ Sitemap.xml — מה לכלול</div>
+      <div class="copy-box" style="margin-top:12px;font-size:12px">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+  &lt;url&gt;&lt;loc&gt;<span class="highlight">https://swiftkeyandlock.com/</span>&lt;/loc&gt;
+  &lt;priority&gt;1.0&lt;/priority&gt;&lt;/url&gt;
+  &lt;url&gt;&lt;loc&gt;<span class="highlight">.../locksmith-stuart-fl</span>&lt;/loc&gt;
+  &lt;priority&gt;0.9&lt;/priority&gt;&lt;/url&gt;
+  &lt;url&gt;&lt;loc&gt;<span class="highlight">.../locksmith-jensen-beach</span>&lt;/loc&gt;
+  &lt;priority&gt;0.9&lt;/priority&gt;&lt;/url&gt;
+  <span class="highlight-green">... (כל 7 ערים)</span>
+&lt;/urlset&gt;
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">📊 Search Console — מה לעקוב</div>
+      <div class="card-body">
+        <strong>Performance → Queries:</strong> אילו מילות מפתח מביאות תנועה<br><br>
+        <strong>Coverage:</strong> האם כל הדפים ב-Index<br><br>
+        <strong>Core Web Vitals:</strong> מהירות על מובייל<br><br>
+        <strong>Links:</strong> מי מקשר אליך<br><br>
+        בדוק כל שבוע — 5 דקות בלבד
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:18px;letter-spacing:0.06em;margin:22px 0 12px;color:var(--gold-bright)">Google Analytics 4 — מה לעקוב</h3>
+
+  <ul class="checklist">
+    <li>
+      <span class="check-icon">📞</span>
+      <div class="check-text">
+        <strong>Phone Call Conversions — הכי חשוב</strong>
+        הדפים שלך כבר כוללים <code>trackCall()</code> ב-GA4. הגדר Conversion Event: phone_call → ראה כמה שיחות כל דף מביא
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🗺️</span>
+      <div class="check-text">
+        <strong>Geo Reports — מאיזה עיר מגיעים</strong>
+        Analytics → User → Geo → City → ראה אם לקוחות מגיעים מ-Stuart, Jensen Beach, Port St. Lucie
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">📱</span>
+      <div class="check-text">
+        <strong>Mobile vs Desktop</strong>
+        70%+ מהלקוחות שלך יחפשו ממובייל. ודא שמהירות מובייל גבוהה.
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- 10. IMAGES -->
+<section class="content-section" id="images">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">תמונות</div>
+      <div class="section-title">Alt Text & WebP</div>
+      <div class="section-desc">תמונות עם Alt Text נכון = מילות מפתח נוספות + נגישות + חיפוש תמונות</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-green">
+      <div class="card-title">✅ Alt Text נכון</div>
+      <div class="card-body" style="font-family:monospace;font-size:13px">
+        alt="locksmith Stuart FL opening car door"<br><br>
+        alt="Swift Key Lock van Stuart Florida"<br><br>
+        alt="emergency locksmith Jensen Beach FL"<br><br>
+        alt="car key programming Martin County FL"
+      </div>
+    </div>
+    <div class="card card-red">
+      <div class="card-title">❌ Alt Text לא נכון</div>
+      <div class="card-body" style="font-family:monospace;font-size:13px">
+        alt="image1"<br><br>
+        alt="photo"<br><br>
+        alt="" (ריק)<br><br>
+        alt="locksmith locksmith locksmith FL"
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:18px;letter-spacing:0.06em;margin:22px 0 12px;color:var(--gold-bright)">תמונות שצריך לצלם</h3>
+
+  <ul class="checklist">
+    <li><span class="check-icon">🚗</span><div class="check-text"><strong>הרכב שלך עם לוגו — חיצוני</strong><br>רקע: Stuart waterfront, מרינה, Downtown Stuart — מוסיף אמינות מקומית</div></li>
+    <li><span class="check-icon">🔑</span><div class="check-text"><strong>תמונת עבודה — ידיים על מנעול</strong><br>צילום קלוז-אפ של עבודה בשטח — אמיתי יותר מ-stock</div></li>
+    <li><span class="check-icon">🛠️</span><div class="check-text"><strong>כלי העבודה שלך</strong><br>מארגן כלים מקצועי — מראה שאתה ציוד מלא ומקצועי</div></li>
+    <li><span class="check-icon">🤝</span><div class="check-text"><strong>תמונה שלך עם לקוח מרוצה</strong><br>לקוח שמחזיק מפתח חדש ומחייך — הכי אמין</div></li>
+    <li><span class="check-icon">📋</span><div class="check-text"><strong>הרישיון שלך — מצולם</strong><br>State of Florida Locksmith License — בונה אמון מיידי</div></li>
+  </ul>
+</section>
+
+<!-- 11. ADS -->
+<section class="content-section" id="ads">
+  <div class="section-header">
+    <div class="section-num">11</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">תשלום</div>
+      <div class="section-title">Google Ads — חודש 2</div>
+      <div class="section-desc">SEO לוקח 3-6 חודשים — Google Ads מביא לקוחות מחר בבוקר</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-gold">
+      <div class="card-title">💰 תקציב מומלץ</div>
+      <div class="card-body">
+        חודש 2: <strong>$300/חודש</strong> — Call-only ads<br>
+        חודש 3: <strong>$500/חודש</strong> — אחרי אופטימיזציה<br>
+        חודש 4+: <strong>$800/חודש</strong> — כשיש ROI ברור<br><br>
+        ממוצע CPC (Cost Per Click) לוקסמיטים בFlorida: $8-$18
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🎯 מילות מפתח לפרסום בלבד</div>
+      <div class="card-body" style="font-family:monospace;font-size:13px">
+        "emergency locksmith Stuart FL"<br>
+        "locksmith near me" + geo<br>
+        "car lockout Stuart FL"<br>
+        "24 hour locksmith"<br>
+        "locked out of car"
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-gold">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-text"><strong>Local Services Ads (LSA) — Google Guaranteed.</strong> זה שונה מ-Google Ads רגיל — אתה משלם רק לפי ליד (שיחה/הודעה), לא לפי קליק. ה-Badge "Google Guaranteed" מגדיל המרות ב-20-30%. מומלץ מאוד לפני Ads רגיל.</div>
+  </div>
+</section>
+
+<!-- 12. CONVERSIONS -->
+<section class="content-section" id="conversions">
+  <div class="section-header">
+    <div class="section-num">12</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">המרות</div>
+      <div class="section-title">שיחות & לידים</div>
+      <div class="section-desc">תנועה לאתר לא שווה כלום בלי המרות — כך מקסימים</div>
+    </div>
+  </div>
+
+  <div class="alert alert-green">
+    <div class="alert-icon">✅</div>
+    <div class="alert-text"><strong>כבר בדפים שלך:</strong> Floating CTA כפתור "Call 24/7" · Emergency Band באמצע הדף · מספר טלפון בולט בנב + פוטר · טופס בקשת הצעה · הכל עם trackCall() GA4.</div>
+  </div>
+
+  <ul class="checklist">
+    <li>
+      <span class="check-icon">📞</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-done">✅ יש</span>Floating Call Button — מובייל</strong>
+        כפתור זהב "CALL 24/7" שמרחף בפינה הימנית תחתונה בכל הדפים. זה הכי חשוב למובייל.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">💬</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-high">HIGH</span>WhatsApp / SMS Button</strong>
+        הוסף כפתור WhatsApp — הרבה אנשים מעדיפים להקליד במקום להתקשר. wa.me/17720000000
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🏷️</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-high">HIGH</span>Google Guaranteed Badge</strong>
+        אחרי אישור LSA — הוסף Badge לאתר. לקוחות נותנים אמון מיידי.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">⏱️</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-medium">MEDIUM</span>Live Chat — תוסף</strong>
+        Tidio או Crisp (חינמי) — chat חי לשאלות מהירות. לא חובה אבל מגדיל המרות 15-25%.
+      </div>
+    </li>
+    <li>
+      <span class="check-icon">🎖️</span>
+      <div class="check-text">
+        <strong><span class="check-badge badge-done">✅ יש</span>Trust Signals — ביניהם</strong>
+        BBB A+ · Licensed · Bonded · $1M Insured · 5-Star Reviews — כולם ב-Trust Bar בכל דף.
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- 13. TIMELINE -->
+<section class="content-section" id="timeline">
+  <div class="section-header">
+    <div class="section-num">13</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">לוח זמנים</div>
+      <div class="section-title">מה לעשות מתי</div>
+      <div class="section-desc">סדר הפעולות קריטי — כל שלב בונה על הקודם</div>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot tl-dot-now"></div>
+      <div class="tl-label" style="color:var(--red)">🔥 שבוע 1 — עכשיו</div>
+      <div class="tl-title">יסודות קריטיים</div>
+      <ul class="tl-list">
+        <li>עדכן מספר טלפון אמיתי בכל 7 הדפים</li>
+        <li>פרסם את 7 הדפים לאתר עם URL נכון</li>
+        <li>הגדר Google Business Profile — שמות ערים, שעות 24/7, קטגוריות</li>
+        <li>הגדר Google Search Console — הגש Sitemap</li>
+        <li>הגדר Google Analytics 4 — שנה G-XXXXXXXXXX</li>
+        <li>צלם 10 תמונות לEסקניה ב-GMB</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot tl-dot-week"></div>
+      <div class="tl-label" style="color:var(--orange)">⚡ שבועות 2-4</div>
+      <div class="tl-title">ביקורות & תוכן</div>
+      <ul class="tl-list">
+        <li>התחל לבקש ביקורות Google אחרי כל עבודה — SMS אוטומטי</li>
+        <li>בנה דפי שירות: /car-lockout, /residential, /commercial</li>
+        <li>הגדר Local Services Ads (Google Guaranteed)</li>
+        <li>צור פרופיל Yelp + Angi + Thumbtack — אותה כתובת ומספר</li>
+        <li>הגדר Sitemap.xml ו-robots.txt</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot tl-dot-month"></div>
+      <div class="tl-label" style="color:var(--blue)">📅 חודש 2</div>
+      <div class="tl-title">פרסום & בלוג</div>
+      <ul class="tl-list">
+        <li>הפעל Google Ads — $300/חודש · Call-only · Emergency keywords</li>
+        <li>פרסם 2 בלוג posts (לפי רשימת נושאים למעלה)</li>
+        <li>יעד: 30 ביקורות Google</li>
+        <li>בדוק Search Console — אילו דפים כבר ב-Index</li>
+        <li>הוסף WhatsApp button לאתר</li>
+      </ul>
+    </div>
+    <div class="tl-item" style="padding-bottom:0">
+      <div class="tl-dot tl-dot-long"></div>
+      <div class="tl-label" style="color:var(--gold)">🏆 חודש 3+</div>
+      <div class="tl-title">דומיננטיות</div>
+      <ul class="tl-list">
+        <li>יעד: 50+ ביקורות — מנצח כל מתחרה בStuart FL</li>
+        <li>הגדל Google Ads ל-$500+ אחרי ROI ברור</li>
+        <li>רכב עם שילוט — כל נסיעה היא פרסומת</li>
+        <li>קשרים עם agents נדל"ן Stuart FL — רפרלים קבועים</li>
+        <li>יעד הכנסה: $12,000+/חודש</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert alert-gold" style="margin-top:28px">
+    <div class="alert-icon">🏆</div>
+    <div class="alert-text"><strong>ציפיות ריאליסטיות:</strong> SEO אורגני לוקח 3-6 חודשים להופיע. Google Ads — לקוחות כבר מחר. GMB + ביקורות — שבועות 2-4. אל תצפה ל-100 שיחות ביום 1 — זה תהליך שבונה תנועה פסיבית לאורך זמן.</div>
+  </div>
+</section>
+
+<!-- FINAL SUMMARY -->
+<section class="content-section">
+  <div class="section-header">
+    <div class="section-num">✅</div>
+    <div class="section-meta">
+      <div class="section-eyebrow">סיכום</div>
+      <div class="section-title">מה כבר מוכן</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-green">
+      <div class="card-title">✅ מוכן — להעלות לאתר</div>
+      <div class="card-body">
+        ✅ 7 דפי נחיתה — Stuart, Jensen Beach, Palm City, Hobe Sound, Port St. Lucie, Fort Pierce, Jupiter<br><br>
+        ✅ Schema JSON-LD — Locksmith + FAQPage כל דף<br><br>
+        ✅ Meta descriptions עם מילות מפתח<br><br>
+        ✅ Mobile responsive + floating CTA<br><br>
+        ✅ Internal linking בפוטר לכל 7 ערים<br><br>
+        ✅ ZIP codes + שכונות ספציפיות<br><br>
+        ✅ GA4 trackCall() על כל כפתורי טלפון
+      </div>
+    </div>
+    <div class="card card-orange">
+      <div class="card-title">⚡ לעשות — שבוע 1</div>
+      <div class="card-body">
+        🔴 עדכן (772) 000-0000 → מספר אמיתי<br><br>
+        🔴 הגדר Google Business Profile<br><br>
+        🔴 חבר Google Search Console + Sitemap<br><br>
+        🔴 חבר Google Analytics 4<br><br>
+        🟡 צלם 10 תמונות לGMB<br><br>
+        🟡 בנה /car-lockout + /residential pages<br><br>
+        🟡 הגדר LSA (Google Guaranteed)
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+// Sidebar active state on scroll
+const sections = document.querySelectorAll('.content-section[id], .hero-section');
+const links = document.querySelectorAll('.sb-link');
+const nav = document.querySelector('.sidebar');
+
+function updateActive(){
+  let current = '';
+  sections.forEach(s=>{
+    const top = s.getBoundingClientRect().top;
+    if(top <= 100) current = s.id || 'hero';
+  });
+  links.forEach(l=>{
+    l.classList.remove('active');
+    const href = l.getAttribute('href');
+    if(href && href === '#'+current) l.classList.add('active');
+  });
+}
+window.addEventListener('scroll', updateActive, {passive:true});
+
+// Progress tracker
+const total = document.querySelectorAll('.checklist li').length;
+let done = 0;
+
+document.querySelectorAll('.checklist li').forEach(li => {
+  li.style.cursor = 'pointer';
+  li.addEventListener('click', () => {
+    if(li.dataset.checked){
+      delete li.dataset.checked;
+      li.style.borderColor = '';
+      li.style.background = 'var(--surface)';
+      li.style.opacity = '1';
+      done = Math.max(0, done-1);
+    } else {
+      li.dataset.checked = '1';
+      li.style.borderColor = 'var(--green-border)';
+      li.style.background = 'var(--green-bg)';
+      done++;
+    }
+    const pct = Math.round(done/total*100);
+    document.getElementById('progressFill').style.width = pct+'%';
+    document.getElementById('progressText').textContent = pct+'%';
+  });
+});
+</script>
+</body>
+</html>
