@@ -1,7 +1,32 @@
 [build]
 publish = "."
 
+# HTML pages: always revalidate so content edits go live immediately.
 [[headers]]
 for = "/*"
 [headers.values]
 Cache-Control = "no-cache, no-store, must-revalidate"
+
+# Static brand assets don't change often and aren't content-hashed, so a
+# short cache (rather than no-store) lets repeat pageviews reuse them
+# instead of re-fetching on every single navigation, without risking a
+# stale asset for long if they're ever updated.
+[[headers]]
+for = "/favicon.ico"
+[headers.values]
+Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+for = "/favicon.svg"
+[headers.values]
+Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+for = "/apple-touch-icon.png"
+[headers.values]
+Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+for = "/og-image.jpg"
+[headers.values]
+Cache-Control = "public, max-age=86400, must-revalidate"

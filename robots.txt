@@ -1,4 +1,5 @@
-﻿User-agent: *
+User-agent: *
 Allow: /
 Disallow: /seo-guide-swift-key
+
 Sitemap: https://www.swiftkeyandlock.com/sitemap.xml
