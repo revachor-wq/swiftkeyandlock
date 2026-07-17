@@ -31,33 +31,103 @@
 
 <script type="application/ld+json">
 {
-  "@context":"https://schema.org",
-  "@graph":[
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@type":["Locksmith","LocalBusiness"],
-      "@id":"https://www.swiftkeyandlock.com/#business",
-      "name":"Swift Key & Lock",
-      "description":"Jensen Beach FL's most trusted 24/7 locksmith. Emergency lockouts, residential, commercial & automotive services across St. Lucie County.",
-      "url":"https://www.swiftkeyandlock.com/locksmith-jensen-beach",
-      "telephone":"+17724045423",
-      "address":{"@type":"PostalAddress","streetAddress":"1832 SE Port St. Lucie Blvd, Suite 6","addressLocality":"Port St. Lucie","addressRegion":"FL","postalCode":"34952","addressCountry":"US"},"areaServed":{"@type":"City","name":"Jensen Beach, FL"},
-      "geo":{"@type":"GeoCoordinates","latitude":27.2572,"longitude":-80.2367},
-      "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}],
-      "aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"247"}
+      "@type": [
+        "Locksmith",
+        "LocalBusiness"
+      ],
+      "@id": "https://www.swiftkeyandlock.com/#business",
+      "name": "Swift Key & Lock",
+      "description": "Jensen Beach FL's most trusted 24/7 locksmith. Emergency lockouts, residential, commercial & automotive services across St. Lucie County.",
+      "url": "https://www.swiftkeyandlock.com/locksmith-jensen-beach",
+      "telephone": "+17724045423",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1832 SE Port St. Lucie Blvd, Suite 6",
+        "addressLocality": "Port St. Lucie",
+        "addressRegion": "FL",
+        "postalCode": "34952",
+        "addressCountry": "US"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Jensen Beach, FL"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 27.273,
+        "longitude": -80.3582
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "00:00",
+          "closes": "23:59"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "247"
+      },
+      "priceRange": "$$"
     },
     {
-      "@type":"Service",
-      "name":"Locksmith Services Jensen Beach FL",
-      "description":"Residential, commercial, and automotive locksmith services in Jensen Beach, FL, including 24/7 emergency lockouts, rekeying, and car key programming.",
-      "provider":{"@type":["Locksmith","LocalBusiness"],"@id":"https://www.swiftkeyandlock.com/#business","name":"Swift Key & Lock"},
-      "areaServed":{"@type":"City","name":"Jensen Beach","addressRegion":"FL"}
+      "@type": "Service",
+      "name": "Locksmith Services Jensen Beach FL",
+      "description": "Residential, commercial, and automotive locksmith services in Jensen Beach, FL, including 24/7 emergency lockouts, rekeying, and car key programming.",
+      "provider": {
+        "@type": [
+          "Locksmith",
+          "LocalBusiness"
+        ],
+        "@id": "https://www.swiftkeyandlock.com/#business",
+        "name": "Swift Key & Lock"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Jensen Beach",
+        "addressRegion": "FL"
+      }
     },
     {
-      "@type":"FAQPage",
-      "mainEntity":[
-        {"@type":"Question","name":"How fast can a locksmith get to me in Jensen Beach FL?","acceptedAnswer":{"@type":"Answer","text":"Swift Key & Lock serves all of Jensen Beach FL including Jensen Beach downtown, NE Indian River Dr, Hutchinson Island, and surrounding neighborhoods."}},
-        {"@type":"Question","name":"How much does a locksmith cost in Jensen Beach FL?","acceptedAnswer":{"@type":"Answer","text":"Locksmith services in Jensen Beach FL start at $65 for rekeying, $75 for lockouts, and $150-$250 for car key programming. We always give a firm quote before starting."}},
-        {"@type":"Question","name":"Do you serve all of Jensen Beach FL 24 hours?","acceptedAnswer":{"@type":"Answer","text":"Yes. Swift Key &amp; Lock serves all of Jensen Beach FL 24/7/365 including zip code 34957 with no after-hours fees."}}
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How fast can a locksmith get to me in Jensen Beach FL?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Swift Key & Lock serves all of Jensen Beach FL including Jensen Beach downtown, NE Indian River Dr, Hutchinson Island, and surrounding neighborhoods."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does a locksmith cost in Jensen Beach FL?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Locksmith services in Jensen Beach FL start at $65 for rekeying, $75 for lockouts, and $150-$250 for car key programming. We always give a firm quote before starting."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you serve all of Jensen Beach FL 24 hours?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Swift Key &amp; Lock serves all of Jensen Beach FL 24/7/365 including zip code 34957 with no after-hours fees."
+          }
+        }
       ]
     }
   ]
@@ -678,12 +748,14 @@ footer{background:#030405;border-top:1px solid var(--border);padding:clamp(52px,
       <div class="footer-col">
         <h4>ALL AREAS</h4>
         <ul>
+          <li><a href="/locksmith-stuart-fl">Stuart FL</a></li>
           <li><a href="/locksmith-jensen-beach">Jensen Beach FL</a></li>
           <li><a href="/locksmith-palm-city">Palm City FL</a></li>
           <li><a href="/locksmith-hobe-sound">Hobe Sound FL</a></li>
           <li><a href="/locksmith-port-st-lucie">Port St. Lucie FL</a></li>
           <li><a href="/locksmith-fort-pierce">Fort Pierce FL</a></li>
           <li><a href="/locksmith-jupiter">Jupiter FL</a></li>
+          <li><a href="/locksmith-melbourne-fl">Melbourne FL</a></li>
         </ul>
       </div>
       <div class="footer-col">
